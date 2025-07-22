@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <>
       <SparkleRain />
-      <main className="bg-[#e90082] w-screen h-screen flex flex-col items-center py-5 overflow-hidden justify-between fixed ">
+      <main className="bg-[#e90082] w-screen h-screen flex flex-col items-center py-5 overflow-hidden fixed gap-4">
         <AbstractGoldSquares />
         <div className="p-[2px] rounded-md bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB300] shadow-md">
           <button className="font-alata bg-[#e90082] text-[#FFD700] px-4 py-2 rounded-md font-dm-serif-display font-semibold w-full h-full">
