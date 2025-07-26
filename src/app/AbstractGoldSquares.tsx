@@ -101,9 +101,9 @@ const DataComponent = () => {
   return (
     <div className="fixed top-[370px] left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
       <div className="flex flex-col items-center">
-        <div className="w-20 h-px bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
+        <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
         <span className="font-alata gold-gradient-subtitle text-center">Sábado</span>
-        <div className="w-20 h-px bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
+        <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
       </div>
       
       <div className="flex flex-col items-center">
@@ -113,9 +113,9 @@ const DataComponent = () => {
       </div>
       
       <div className="flex flex-col items-center">
-        <div className="w-20 h-px bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
-        <span className="font-alata gold-gradient-subtitle text-center">Às 19:30</span>
-        <div className="w-20 h-px bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
+        <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
+        <span className="font-alata gold-gradient-subtitle text-center">Às 20:00</span>
+        <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
       </div>
     </div>
   )
