@@ -49,24 +49,45 @@ function SparkleRain() {
           </span>
         );
       })}
-      <style>{`
-        @keyframes sparkle-fall {
-          0% {
-            transform: translateY(0) scale(1) rotate(0deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(105vh) scale(0.85) rotate(30deg);
-            opacity: 0;
-          }
-        }
-      `}</style>
+    </div>
+  );
+}
+
+function EntranceParticles() {
+  const particles = Array.from({ length: 15 });
+  return (
+    <div style={{
+      pointerEvents: 'none',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      zIndex: 1,
+      overflow: 'hidden',
+    }}>
+      {particles.map((_, i) => {
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 4 + Math.random() * 8;
+        const delay = Math.random() * 2;
+        return (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${left}%`,
+              top: `${top}%`,
+              width: size,
+              height: size,
+              backgroundColor: '#FFD700',
+              borderRadius: '50%',
+              boxShadow: '0 0 10px #FFD700, 0 0 20px #FFD700',
+              animation: `particle-entrance 2s ease-out ${delay}s both`,
+            }}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -74,11 +95,14 @@ function SparkleRain() {
 export default function Home() {
   return (
     <>
+      <EntranceParticles />
       <SparkleRain />
-      <main className="bg-[#e90082] w-screen h-screen flex flex-col items-center py-5 overflow-hidden fixed gap-4">
-        <AbstractGoldSquares />
-        <div className="p-[2px] rounded-md bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB300] shadow-md">
-          <button className="font-alata bg-[#e90082] text-[#FFD700] px-4 py-2 rounded-md font-dm-serif-display font-semibold w-full h-full">
+      <main className="animate-bg-pulse bg-[#e90082] w-screen h-screen flex flex-col items-center py-5 overflow-hidden fixed gap-4">
+        <div className="animate-float-in">
+          <AbstractGoldSquares />
+        </div>
+        <div className="animate-bounce-in p-[2px] rounded-md bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB300] shadow-md">
+          <button className="font-alata bg-[#e90082] text-[#FFD700] px-4 py-2 rounded-md font-dm-serif-display font-semibold w-full h-full hover:scale-105 transition-transform duration-200">
             Confirmar presença
           </button>
         </div>
