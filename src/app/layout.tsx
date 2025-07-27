@@ -23,6 +23,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Alata&display=swap" rel="stylesheet" />
       </head>
       <body
         className={`${dmSerifDisplay.className} antialiased`}

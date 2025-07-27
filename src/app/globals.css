@@ -87,3 +87,21 @@
 .animate-bounce-in {
   animation: bounce-in 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1s both;
 }
+
+/* Fontes */
+.font-alex-brush {
+  font-family: 'Alex Brush', cursive;
+}
+
+.font-alata {
+  font-family: 'Alata', sans-serif;
+}
+
+/* Gradientes de texto */
+.gold-gradient-text {
+  background: linear-gradient(90deg, #FFD700 0%, #FFF8DC 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}

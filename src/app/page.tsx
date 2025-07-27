@@ -1,5 +1,8 @@
+"use client";
+
 import AbstractGoldSquares from "./AbstractGoldSquares";
-import React from "react";
+import NameModal from "./NameModal";
+import React, { useState, useEffect } from "react";
 
 function Sparkle({ style }: { style: React.CSSProperties }) {
   // SVG de estrela simples dourada
@@ -93,6 +96,69 @@ function EntranceParticles() {
 }
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [hasConfirmedAttendance, setHasConfirmedAttendance] = useState(false);
+
+  // Verificar localStorage ao carregar o componente
+  useEffect(() => {
+    const confirmed = localStorage.getItem('birthdayAttendanceConfirmed');
+    if (confirmed) {
+      setHasConfirmedAttendance(true);
+    }
+  }, []);
+
+  const handleConfirmClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setMessage(null);
+  };
+
+  const handleSubmitName = async (name: string) => {
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('/api/save-attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Salvar no localStorage que a presença foi confirmada
+        localStorage.setItem('birthdayAttendanceConfirmed', 'true');
+        setHasConfirmedAttendance(true);
+        
+        setMessage({ type: 'success', text: 'Presença confirmada com sucesso! 🎉' });
+        setTimeout(() => {
+          setIsModalOpen(false);
+          setMessage(null);
+        }, 2000);
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Erro ao confirmar presença' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Erro de conexão. Tente novamente.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLocationClick = () => {
+    // Abrir localização no Google Maps
+    const locationUrl = "https://maps.google.com/?q=-23.5505,-46.6333"; // Coordenadas de São Paulo (você pode alterar)
+    window.open(locationUrl, '_blank');
+  };
+
   return (
     <>
       <EntranceParticles />
@@ -101,12 +167,53 @@ export default function Home() {
         <div className="animate-float-in">
           <AbstractGoldSquares />
         </div>
-        <div className="animate-bounce-in p-[2px] rounded-md bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB300] shadow-md">
-          <button className="font-alata bg-[#e90082] text-[#FFD700] px-4 py-2 rounded-md font-dm-serif-display font-semibold w-full h-full hover:scale-105 transition-transform duration-200">
-            Confirmar presença
-          </button>
-        </div>
+        
+        {hasConfirmedAttendance ? (
+          // Botão de localização para quem já confirmou
+          <div className="animate-bounce-in p-[3px] rounded-xl bg-gradient-to-r from-[#ff6b6b] via-[#ee5a24] to-[#ff6348] shadow-lg">
+            <button 
+              onClick={handleLocationClick}
+              className="font-alata bg-white text-[#ff6b6b] px-6 py-3 rounded-lg font-dm-serif-display font-bold w-full h-full hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 shadow-inner"
+            >
+              <span className="text-2xl">📍</span>
+              <span>Ver Localização</span>
+            </button>
+          </div>
+        ) : (
+          // Botão de confirmar presença para quem ainda não confirmou
+          <div className="animate-bounce-in p-[2px] rounded-md bg-gradient-to-r from-[#FFD700] via-[#FFC300] to-[#FFB300] shadow-md">
+            <button 
+              onClick={handleConfirmClick}
+              className="font-alata bg-[#e90082] text-[#FFD700] px-4 py-2 rounded-md font-dm-serif-display font-semibold w-full h-full hover:scale-105 transition-transform duration-200"
+            >
+              Confirmar presença
+            </button>
+          </div>
+        )}
       </main>
+
+      <NameModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onSubmit={handleSubmitName}
+        isLoading={isLoading}
+      />
+
+      {/* Mensagem de feedback */}
+      {message && (
+        <div className={`fixed top-4 right-4 z-50 p-6 rounded-2xl shadow-2xl max-w-sm animate-bounce-in ${
+          message.type === 'success' 
+            ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-2 border-green-300' 
+            : 'bg-gradient-to-r from-red-500 to-pink-500 text-white border-2 border-red-300'
+        }`}>
+          <div className="flex items-center font-alata">
+            <span className="mr-3 text-2xl">
+              {message.type === 'success' ? '✨' : '❌'}
+            </span>
+            <span className="font-alata font-medium">{message.text}</span>
+          </div>
+        </div>
+      )}
     </>
   );
 }
