@@ -155,7 +155,7 @@ export default function Home() {
 
   const handleLocationClick = () => {
     // Abrir localização no Google Maps
-    const locationUrl = "https://maps.google.com/?q=-23.5505,-46.6333"; // Coordenadas de São Paulo (você pode alterar)
+    const locationUrl = process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL;
     window.open(locationUrl, '_blank');
   };
 
