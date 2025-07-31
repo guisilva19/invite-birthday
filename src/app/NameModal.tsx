@@ -39,7 +39,7 @@ export default function NameModal({ isOpen, onClose, onSubmit, isLoading }: Name
         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
           <div>
             <label htmlFor="name" className="block font-alata text-sm font-medium text-gray-700 mb-3">
-              Nome Completo
+              Nome
             </label>
             <input
               type="text"

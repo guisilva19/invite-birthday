@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import line from "../assets/line.svg";
 
-export default function AbstractGoldSquares() {
+export default function AbstractGoldSquares({ hasConfirmedAttendance }: { hasConfirmedAttendance: boolean }) {
   return (
     <div
       className="px-2 relative"
@@ -90,8 +90,15 @@ export default function AbstractGoldSquares() {
         Alícia
       </h1>
       <span className="font-alex-brush absolute top-48 left-1/2 -translate-x-1/2 -translate-y-1/2 gold-gradient-old-text">15 anos</span>
-      <span className="font-alata absolute top-[260px] left-1/2 -translate-x-1/2 -translate-y-1/2 gold-gradient-subtitle text-sm">Você está convidado para celebrar esse dia especial comigo!</span>
+      <span className="font-alata absolute top-[250px] left-1/2 -translate-x-1/2 -translate-y-1/2 gold-gradient-subtitle text-sm w-[270px] text-center">Você está convidado para celebrar esse dia especial comigo!</span>
       <DataComponent />
+      {
+        hasConfirmedAttendance && (
+          <div className="absolute top-[435px] left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+            <span className="font-alata gold-gradient-subtitle text-center">Rua Amazonas - 316 <br /> Bairro São José</span>
+          </div>
+        )
+      }
     </div>
   );
 }
@@ -99,24 +106,26 @@ export default function AbstractGoldSquares() {
 
 const DataComponent = () => {
   return (
-    <div className="fixed top-[370px] left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
-        <span className="font-alata gold-gradient-subtitle text-center">Sábado</span>
-        <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
+    <>
+      <div className="fixed top-[340px] left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="flex flex-col items-center">
+          <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
+          <span className="font-alata gold-gradient-subtitle text-center">Sábado</span>
+          <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <span className="font-alata gold-gradient-month">SETEMBRO</span>
+          <span className="font-alata gold-gradient-number font-bold leading-none">06</span>
+          <span className="font-alata gold-gradient-month text-lg mt-2">2025</span>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
+          <span className="font-alata gold-gradient-subtitle text-center">Às 19:30</span>
+          <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
+        </div>
       </div>
-      
-      <div className="flex flex-col items-center">
-        <span className="font-alata gold-gradient-month">SETEMBRO</span>
-        <span className="font-alata gold-gradient-number font-bold leading-none">06</span>
-        <span className="font-alata gold-gradient-month text-lg mt-2">2025</span>
-      </div>
-      
-      <div className="flex flex-col items-center">
-        <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-yellow-400 mb-1"></div>
-        <span className="font-alata gold-gradient-subtitle text-center">Às 20:00</span>
-        <div className="w-20 h-[2px] bg-gradient-to-l from-transparent via-yellow-400 to-yellow-400 mt-1"></div>
-      </div>
-    </div>
+    </>
   )
 }

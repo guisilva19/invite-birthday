@@ -165,7 +165,7 @@ export default function Home() {
       <SparkleRain />
       <main className="animate-bg-pulse bg-[#e90082] w-screen h-screen flex flex-col items-center py-5 overflow-hidden fixed gap-4">
         <div className="animate-float-in">
-          <AbstractGoldSquares />
+          <AbstractGoldSquares hasConfirmedAttendance={hasConfirmedAttendance} />
         </div>
         
         {hasConfirmedAttendance ? (
