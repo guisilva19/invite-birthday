@@ -101,10 +101,21 @@ export default function Home() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [hasConfirmedAttendance, setHasConfirmedAttendance] = useState(false);
 
+  // Versão do app - incremente quando quiser limpar localStorage de todos
+  const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION as string;
+
   // Verificar localStorage ao carregar o componente
   useEffect(() => {
-    const confirmed = localStorage.getItem('birthdayAttendanceConfirmed');
-    if (confirmed) {
+    const confirmed = localStorage.getItem('birthdayAttendanceConfirmedV2');
+    const savedVersion = localStorage.getItem('birthdayAppVersion');
+    
+    // Se a versão mudou, limpar localStorage
+    if (savedVersion !== APP_VERSION) {
+      localStorage.removeItem('birthdayAttendanceConfirmed');
+      localStorage.removeItem('birthdayAttendanceConfirmedV2');
+      localStorage.setItem('birthdayAppVersion', APP_VERSION);
+      setHasConfirmedAttendance(false);
+    } else if (confirmed) {
       setHasConfirmedAttendance(true);
     }
   }, []);
@@ -135,7 +146,7 @@ export default function Home() {
 
       if (response.ok) {
         // Salvar no localStorage que a presença foi confirmada
-        localStorage.setItem('birthdayAttendanceConfirmed', 'true');
+        localStorage.setItem('birthdayAttendanceConfirmedV2', 'true');
         setHasConfirmedAttendance(true);
         
         setMessage({ type: 'success', text: 'Presença confirmada com sucesso! 🎉' });
