@@ -71,6 +71,11 @@ export default function AbstractGoldSquares({ hasConfirmedAttendance }: { hasCon
                 -ms-user-select: none;
                 user-select: none;
                 -webkit-tap-highlight-color: transparent;
+                text-decoration: none !important;
+                outline: none !important;
+                -webkit-touch-callout: none;
+                -webkit-appearance: none;
+                appearance: none;
               }
               .gold-gradient-month {
                 background: linear-gradient(90deg, #FFD700 0%, #FFF8DC 50%, #FFD700 100%);
@@ -100,7 +105,7 @@ export default function AbstractGoldSquares({ hasConfirmedAttendance }: { hasCon
       {
         hasConfirmedAttendance && (
           <div className="absolute top-[435px] left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-            <span className="font-alata gold-gradient-subtitle text-center">Rua Amazonas - 316 <br /> Bairro São José</span>
+            <span className="font-alata gold-gradient-subtitle text-center" style={{ textDecoration: 'none', outline: 'none', WebkitTouchCallout: 'none' }}>Rua Amazonas - 316 <br /> Bairro São José</span>
           </div>
         )
       }
